@@ -5,6 +5,29 @@ export interface Pokemon {
   name: string;
   types: string[];
   hp: number;
+  generation: number;
+}
+
+export const GEN_RANGES: Record<number, [number, number]> = {
+  1: [1, 151],
+  2: [152, 251],
+  3: [252, 386],
+  4: [387, 493],
+  5: [494, 649],
+  6: [650, 721],
+  7: [722, 809],
+  8: [810, 905],
+  9: [906, 1025],
+};
+
+export function getGeneration(id: number): number {
+  for (const [gen, [start, end]] of Object.entries(GEN_RANGES)) {
+    if (id >= start && id <= end) {
+      return Number(gen);
+    }
+  }
+
+  return 1;
 }
 
 interface PokemonListResponse {
@@ -47,6 +70,7 @@ function mapPokemon(detail: PokemonDetailResponse): Pokemon {
     types: detail.types.map(({ type }) => type.name),
     hp:
       detail.stats.find(({ stat }) => stat.name === "hp")?.base_stat ?? 0,
+    generation: getGeneration(detail.id),
   };
 }
 
@@ -56,10 +80,16 @@ export async function getPokemonList(): Promise<Pokemon[]> {
   );
 
   const pokemonDetails = await Promise.all(
-    results.map(({ url }) =>
-      fetchJson<PokemonDetailResponse>(url)
-    )
+    results.map(({ url }) => fetchJson<PokemonDetailResponse>(url))
   );
 
   return pokemonDetails.map(mapPokemon);
+}
+
+export async function fetchGen(gen: number): Promise<Pokemon[]> {
+  const allPokemon = await getPokemonList();
+
+  return allPokemon.filter(
+    (pokemon) => pokemon.generation === gen
+  );
 }

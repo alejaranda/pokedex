@@ -1,9 +1,6 @@
 ---
-import PokemonCard from "../components/Card.astro";
-import { getPokemonList } from "../lib/pokemon";
+import Pokedex from "../components/Pokedex";
 import "../global.css";
-
-const pokemon = await getPokemonList();
 ---
 
 <html lang="en">
@@ -14,15 +11,7 @@ const pokemon = await getPokemonList();
 	</head>
 	<body>
 		<main class="mx-auto max-w-6xl px-4 py-6 sm:px-5 sm:py-8">
-			<div
-				class="flex flex-col gap-2 sm:grid sm:grid-cols-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
-			>
-				{
-					pokemon.map((p) => (
-						<PokemonCard id={p.id} name={p.name} types={p.types} hp={p.hp} />
-					))
-				}
-			</div>
+			<Pokedex client:load />
 		</main>
 	</body>
 </html>
