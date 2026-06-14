@@ -1,0 +1,58 @@
+---
+export interface Props {
+  id: number;
+  name: string;
+  types: string[];
+  hp: number;
+}
+
+const { id, name, types = [], hp } = Astro.props;
+
+const num = String(id).padStart(3, "0");
+
+const sprite = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
+
+const primaryType = types[0]?.toLowerCase() ?? "normal";
+---
+
+<article
+  class="overflow-hidden rounded-lg border border-zinc-200 bg-white transition hover:-translate-y-0.5 hover:border-zinc-300"
+  style={`--pk-color: var(--type-${primaryType});`}
+>
+  <div class="h-0.75 bg-(--pk-color)"></div>
+
+  <div class="flex justify-center bg-zinc-100 px-0 py-2">
+    <img src={sprite} alt={name} loading="lazy" class="h-14 w-14 pixelated" />
+  </div>
+
+  <div class="p-2.5">
+    <div class="mb-1 flex items-baseline justify-between">
+      <span class="font-pokemon text-[7px] text-zinc-400">
+        #{num}
+      </span>
+
+      <span class="font-pokemon text-[6px] text-zinc-500">
+        <b class="text-[9px] text-(--pk-color)">{hp}</b> HP
+      </span>
+    </div>
+
+    <p
+      class="mb-1.5 font-pokemon text-[7px] leading-[1.4] text-(--pk-ink) capitalize"
+    >
+      {name}
+    </p>
+
+    <div class="flex flex-wrap gap-1">
+      {
+        types.map((type) => (
+          <span
+            class="rounded px-1.5 py-0.5 text-[9px] font-semibold text-white capitalize"
+            style={`background: var(--type-${type.toLowerCase()})`}
+          >
+            {type}
+          </span>
+        ))
+      }
+    </div>
+  </div>
+</article>
