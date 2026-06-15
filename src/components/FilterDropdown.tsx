@@ -56,7 +56,7 @@ export function FilterDropdown({
 
   const selected = options.find((o) => o.value === value);
   const isActive = value !== "";
-  const clearLabel = label === "Generación" ? "Todas" : "Todos";
+  const clearLabel = label === "Gen" ? "All" : "All";
 
   useEffect(() => {
     const onClickOutside = (e: MouseEvent) => {
