@@ -5,6 +5,13 @@ export interface Pokemon {
   name: string;
   types: string[];
   hp: number;
+  attack: number;
+  defense: number;
+  specialAttack: number;
+  specialDefense: number;
+  speed: number;
+  height: number;
+  weight: number;
   generation: number;
 }
 
@@ -26,7 +33,6 @@ export function getGeneration(id: number): number {
       return Number(gen);
     }
   }
-
   return 1;
 }
 
@@ -40,6 +46,8 @@ interface PokemonListResponse {
 interface PokemonDetailResponse {
   id: number;
   name: string;
+  height: number;
+  weight: number;
   types: {
     type: {
       name: string;
@@ -55,21 +63,28 @@ interface PokemonDetailResponse {
 
 async function fetchJson<T>(url: string): Promise<T> {
   const response = await fetch(url);
-
   if (!response.ok) {
     throw new Error(`Request failed: ${response.status}`);
   }
-
   return response.json();
 }
 
 function mapPokemon(detail: PokemonDetailResponse): Pokemon {
+  const stat = (name: string) =>
+    detail.stats.find(({ stat }) => stat.name === name)?.base_stat ?? 0;
+
   return {
     id: detail.id,
     name: detail.name,
     types: detail.types.map(({ type }) => type.name),
-    hp:
-      detail.stats.find(({ stat }) => stat.name === "hp")?.base_stat ?? 0,
+    hp: stat("hp"),
+    attack: stat("attack"),
+    defense: stat("defense"),
+    specialAttack: stat("special-attack"),
+    specialDefense: stat("special-defense"),
+    speed: stat("speed"),
+    height: detail.height,
+    weight: detail.weight,
     generation: getGeneration(detail.id),
   };
 }
@@ -78,18 +93,13 @@ export async function getPokemonList(): Promise<Pokemon[]> {
   const { results } = await fetchJson<PokemonListResponse>(
     `${API_URL}/pokemon?limit=1025`
   );
-
   const pokemonDetails = await Promise.all(
     results.map(({ url }) => fetchJson<PokemonDetailResponse>(url))
   );
-
   return pokemonDetails.map(mapPokemon);
 }
 
 export async function fetchGen(gen: number): Promise<Pokemon[]> {
   const allPokemon = await getPokemonList();
-
-  return allPokemon.filter(
-    (pokemon) => pokemon.generation === gen
-  );
+  return allPokemon.filter((pokemon) => pokemon.generation === gen);
 }
