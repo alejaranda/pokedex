@@ -1,46 +1,21 @@
-# Astro Starter Kit: Basics
+# 📦 What’s inside
 
-```sh
-bun create astro@latest -- --template basics
-```
+* **📖 Pokédex**
+  Browse and discover Pokémon across all generations.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+* **🔍 Search**
+  Find Pokémon by name or Pokédex number.
 
-## 🚀 Project Structure
+* **🌎 Filters**
+  Filter by generation and type.
 
-Inside of your Astro project, you'll see the following folders and files:
+* **📊 Stats**
+  View base stats, abilities, and Pokémon details.
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
+* **⭐ Favorites**
+  Save your favorite Pokémon for quick access.
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## 📚 Notes
 
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `bun install`             | Installs dependencies                            |
-| `bun dev`             | Starts local dev server at `localhost:4321`      |
-| `bun build`           | Build your production site to `./dist/`          |
-| `bun preview`         | Preview your build locally, before deploying     |
-| `bun astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `bun astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+This project is intentionally simple and focused.
+Built to provide a fast and clean way to explore Pokémon data.
