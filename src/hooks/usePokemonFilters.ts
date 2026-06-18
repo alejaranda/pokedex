@@ -14,7 +14,7 @@ export function usePokemonFilters(
 		const q = query.toLowerCase().trim();
 
 		const filtered = pokemon.filter((p) => {
-			const matchName = !q || p.name.includes(q);
+			const matchName = !q || p.name.includes(q) || String(p.id).includes(q);
 			const matchType = !typeFilter || p.types.includes(typeFilter);
 			return matchName && matchType;
 		});
