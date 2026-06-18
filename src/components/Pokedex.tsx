@@ -18,6 +18,7 @@ export default function Pokedex() {
 	const [typeFilter, setTypeFilter] = useState("");
 	const [sortKey, setSortKey] = useState<SortKey>("id");
 	const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
+	const [shuffleSeed, setShuffleSeed] = useState(0);
 
 	const { pokemon: allPokemon, loading: isLoading } = usePokemon(gen);
 	const filtered = usePokemonFilters(
@@ -26,6 +27,7 @@ export default function Pokedex() {
 		typeFilter,
 		sortKey,
 		sortDirection,
+		shuffleSeed,
 	);
 
 	const typeColor = typeFilter ? `var(--type-${typeFilter})` : undefined;
@@ -70,7 +72,10 @@ export default function Pokedex() {
 					label="Sort"
 					value={sortKey === "id" ? "" : sortKey}
 					options={sortOptions}
-					onChange={(v) => setSortKey((v || "id") as SortKey)}
+					onChange={(v) => {
+						setSortKey((v || "id") as SortKey);
+						setShuffleSeed(0);
+					}}
 				/>
 
 				<button
@@ -100,7 +105,41 @@ export default function Pokedex() {
 					</svg>
 				</button>
 
-				{(gen || query || typeFilter || sortKey !== "id") && (
+				<button
+					onClick={() =>
+						setShuffleSeed(Math.floor(Math.random() * 1_000_000) + 1)
+					}
+					aria-label="Shuffle order"
+					title="Random order"
+					className={`flex h-6.75 w-6.75 items-center justify-center rounded-lg border transition ${
+						shuffleSeed !== 0
+							? "border-zinc-300 bg-zinc-100 text-zinc-700"
+							: "border-zinc-200 bg-white text-zinc-400 hover:border-zinc-300 hover:text-zinc-600"
+					}`}
+				>
+					<svg width="9" height="9" viewBox="0 0 12 12" fill="none">
+						<rect
+							x="1.5"
+							y="1.5"
+							width="9"
+							height="9"
+							rx="1.5"
+							stroke="currentColor"
+							strokeWidth="1.3"
+						/>
+						<circle cx="4" cy="4" r="0.8" fill="currentColor" />
+						<circle cx="8" cy="4" r="0.8" fill="currentColor" />
+						<circle cx="6" cy="6" r="0.8" fill="currentColor" />
+						<circle cx="4" cy="8" r="0.8" fill="currentColor" />
+						<circle cx="8" cy="8" r="0.8" fill="currentColor" />
+					</svg>
+				</button>
+
+				{(gen ||
+					query ||
+					typeFilter ||
+					sortKey !== "id" ||
+					shuffleSeed !== 0) && (
 					<button
 						onClick={() => {
 							setGen("");
@@ -108,6 +147,7 @@ export default function Pokedex() {
 							setTypeFilter("");
 							setSortKey("id");
 							setSortDirection("asc");
+							setShuffleSeed(0);
 						}}
 						className="rounded-lg border border-zinc-200 bg-white px-3 py-2 font-pokemon text-[7px] text-zinc-400 transition hover:border-zinc-300 hover:text-zinc-600"
 					>

@@ -3,12 +3,32 @@ import { getStatTotal, type Pokemon, type SortKey } from "../lib/pokemon";
 
 export type SortDirection = "asc" | "desc";
 
+function seededRandom(seed: number) {
+	return () => {
+		var t = (seed += 0x6d2b79f5);
+		t = Math.imul(t ^ (t >>> 15), t | 1);
+		t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+		return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+	};
+}
+
+function shuffleWithSeed<T>(arr: T[], seed: number): T[] {
+	const result = [...arr];
+	const rand = seededRandom(seed);
+	for (let i = result.length - 1; i > 0; i--) {
+		const j = Math.floor(rand() * (i + 1));
+		[result[i], result[j]] = [result[j], result[i]];
+	}
+	return result;
+}
+
 export function usePokemonFilters(
 	pokemon: Pokemon[],
 	query: string,
 	typeFilter: string,
 	sortKey: SortKey = "id",
 	sortDirection: SortDirection = "asc",
+	shuffleSeed: number = 0,
 ) {
 	return useMemo(() => {
 		const q = query.toLowerCase().trim();
@@ -18,6 +38,10 @@ export function usePokemonFilters(
 			const matchType = !typeFilter || p.types.includes(typeFilter);
 			return matchName && matchType;
 		});
+
+		if (shuffleSeed !== 0) {
+			return shuffleWithSeed(filtered, shuffleSeed);
+		}
 
 		const getValue = (p: Pokemon): number | string => {
 			if (sortKey === "name") return p.name;
@@ -40,5 +64,5 @@ export function usePokemonFilters(
 		});
 
 		return sorted;
-	}, [pokemon, query, typeFilter, sortKey, sortDirection]);
+	}, [pokemon, query, typeFilter, sortKey, sortDirection, shuffleSeed]);
 }
