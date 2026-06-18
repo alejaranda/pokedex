@@ -99,7 +99,65 @@ export async function getPokemonList(): Promise<Pokemon[]> {
 	return pokemonDetails.map(mapPokemon);
 }
 
+// Antes: pedía la lista completa (1025 fetches) y filtraba en memoria.
+// Ahora: pide solo los ids del rango de esa generación.
 export async function fetchGen(gen: number): Promise<Pokemon[]> {
-	const allPokemon = await getPokemonList();
-	return allPokemon.filter((pokemon) => pokemon.generation === gen);
+	const [start, end] = GEN_RANGES[gen];
+	const ids = Array.from({ length: end - start + 1 }, (_, i) => start + i);
+	const pokemonDetails = await Promise.all(
+		ids.map((id) =>
+			fetchJson<PokemonDetailResponse>(`${API_URL}/pokemon/${id}`),
+		),
+	);
+	return pokemonDetails.map(mapPokemon);
+}
+
+export const ALL_TYPES = [
+	"normal",
+	"fire",
+	"water",
+	"electric",
+	"grass",
+	"ice",
+	"fighting",
+	"poison",
+	"ground",
+	"flying",
+	"psychic",
+	"bug",
+	"rock",
+	"ghost",
+	"dragon",
+	"dark",
+	"steel",
+	"fairy",
+] as const;
+
+export type SortKey =
+	| "id"
+	| "name"
+	| "hp"
+	| "attack"
+	| "defense"
+	| "specialAttack"
+	| "specialDefense"
+	| "speed"
+	| "total";
+
+export const SORT_OPTIONS: { value: SortKey; label: string }[] = [
+	{ value: "id", label: "Number" },
+	{ value: "name", label: "Name (A-Z)" },
+	{ value: "total", label: "Total stats" },
+	{ value: "hp", label: "HP" },
+	{ value: "attack", label: "Attack" },
+	{ value: "defense", label: "Defense" },
+	{ value: "specialAttack", label: "Sp. Atk" },
+	{ value: "specialDefense", label: "Sp. Def" },
+	{ value: "speed", label: "Speed" },
+];
+
+export function getStatTotal(p: Pokemon): number {
+	return (
+		p.hp + p.attack + p.defense + p.specialAttack + p.specialDefense + p.speed
+	);
 }
