@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { Pokemon } from "../lib/pokemon";
+import type { Pokemon } from "../../lib/pokemon";
 
 type Props = {
 	pokemon: Pokemon | null;

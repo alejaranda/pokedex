@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { Pokemon } from "../lib/pokemon";
+import type { Pokemon } from "../../lib/pokemon";
 import { PokemonModal } from "./PokemonModal";
 
 type Props = {

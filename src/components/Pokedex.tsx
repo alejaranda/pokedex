@@ -5,11 +5,11 @@ import {
 	usePokemonFilters,
 	type SortDirection,
 } from "../hooks/usePokemonFilters";
-import { PokemonCard } from "./Card";
-import { FilterDropdown } from "./FilterDropdown";
-import { SearchBar } from "./SearchBar";
-import { LoadingState } from "./LoadingState";
-import { EmptyState } from "./EmptyState";
+import { PokemonCard } from "./pokemon/PokemonCard";
+import { FilterDropdown } from "./ui/FilterDropdown";
+import { SearchBar } from "./ui/SearchBar";
+import { LoadingState } from "./ui/LoadingState";
+import { EmptyState } from "./ui/EmptyState";
 
 const ALL_TYPES = [
 	"fire",
@@ -99,7 +99,7 @@ export default function Pokedex() {
 					}
 					aria-label="Toggle sort direction"
 					title={sortDirection === "asc" ? "Ascending" : "Descending"}
-					className="flex h-[27px] w-[27px] items-center justify-center rounded-lg border border-zinc-200 bg-white text-zinc-400 transition hover:border-zinc-300 hover:text-zinc-600"
+					className="flex h-6.75 w-6.75 items-center justify-center rounded-lg border border-zinc-200 bg-white text-zinc-400 transition hover:border-zinc-300 hover:text-zinc-600"
 				>
 					<svg
 						width="9"
