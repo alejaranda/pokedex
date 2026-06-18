@@ -39,3 +39,24 @@ export const TYPE_COLORS: Record<string, string> = {
 	steel: "bg-slate-400 text-zinc-900",
 	fairy: "bg-pink-300 text-zinc-900",
 };
+
+const ALL_TYPES = [
+	"fire",
+	"water",
+	"grass",
+	"electric",
+	"poison",
+	"flying",
+	"psychic",
+	"dragon",
+	"normal",
+	"ice",
+	"rock",
+	"ghost",
+	"bug",
+	"fighting",
+	"steel",
+	"dark",
+	"fairy",
+	"ground",
+];

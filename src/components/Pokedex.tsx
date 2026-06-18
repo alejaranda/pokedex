@@ -10,27 +10,7 @@ import { FilterDropdown } from "./ui/FilterDropdown";
 import { SearchBar } from "./ui/SearchBar";
 import { LoadingState } from "./ui/LoadingState";
 import { EmptyState } from "./ui/EmptyState";
-
-const ALL_TYPES = [
-	"fire",
-	"water",
-	"grass",
-	"electric",
-	"poison",
-	"flying",
-	"psychic",
-	"dragon",
-	"normal",
-	"ice",
-	"rock",
-	"ghost",
-	"bug",
-	"fighting",
-	"steel",
-	"dark",
-	"fairy",
-	"ground",
-];
+import { ALL_TYPES } from "../lib/pokemon";
 
 export default function Pokedex() {
 	const [gen, setGen] = useState("");
