@@ -2,47 +2,47 @@
 @import "tailwindcss";
 
 :root {
-  --pk-ink: #1a1a1a;
-  --pk-paper: #f5f0e8;
-  --pk-accent: #cc0000;
-  --pk-yellow: #f5c800;
-  --pk-mid: #888888;
-  --pk-border: 3px solid #1a1a1a;
-  --pk-font: "Press Start 2P", monospace;
+	--pk-ink: #1a1a1a;
+	--pk-paper: #f5f0e8;
+	--pk-accent: #cc0000;
+	--pk-yellow: #f5c800;
+	--pk-mid: #888888;
+	--pk-border: 3px solid #1a1a1a;
+	--pk-font: "Press Start 2P", monospace;
 
-  --type-fire: #e8390a;
-  --type-water: #1a52cc;
-  --type-grass: #1a7a2a;
-  --type-electric: #d4ac00;
-  --type-poison: #6600aa;
-  --type-flying: #5577dd;
-  --type-psychic: #bb0055;
-  --type-dragon: #2200bb;
-  --type-normal: #777777;
-  --type-ice: #1a9988;
-  --type-rock: #7a6633;
-  --type-ghost: #443377;
-  --type-bug: #556611;
-  --type-fighting: #991100;
-  --type-steel: #6688aa;
-  --type-dark: #223344;
-  --type-fairy: #bb4499;
-  --type-ground: #775522;
+	--type-fire: #e8390a;
+	--type-water: #1a52cc;
+	--type-grass: #1a7a2a;
+	--type-electric: #d4ac00;
+	--type-poison: #6600aa;
+	--type-flying: #5577dd;
+	--type-psychic: #bb0055;
+	--type-dragon: #2200bb;
+	--type-normal: #777777;
+	--type-ice: #1a9988;
+	--type-rock: #7a6633;
+	--type-ghost: #443377;
+	--type-bug: #556611;
+	--type-fighting: #991100;
+	--type-steel: #6688aa;
+	--type-dark: #223344;
+	--type-fairy: #bb4499;
+	--type-ground: #775522;
 }
 
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 body {
-  font-family: var(--pk-font);
-  margin: 0;
+	font-family: var(--pk-font);
+	margin: 0;
 }
 
 .pixelated {
-  image-rendering: pixelated;
+	image-rendering: pixelated;
 }
 
 .font-pokemon {
-  font-family: var(--pk-font);
+	font-family: var(--pk-font);
 }

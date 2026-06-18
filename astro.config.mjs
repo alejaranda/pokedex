@@ -1,14 +1,14 @@
 // @ts-check
 import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
-import react from '@astrojs/react';
+import react from "@astrojs/react";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://alejaranda.github.io",
-  base: "/pokedex",
-  vite: {
-    plugins: [tailwindcss()],
-  },
-  integrations: [react()],
+	site: "https://alejaranda.github.io",
+	base: "/pokedex",
+	vite: {
+		plugins: [tailwindcss()],
+	},
+	integrations: [react()],
 });
